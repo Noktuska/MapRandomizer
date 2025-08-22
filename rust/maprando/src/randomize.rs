@@ -4584,7 +4584,16 @@ impl<'r> Randomizer<'r> {
             self.settings,
             save_animals != SaveAnimals::No,
             &self.difficulty_tiers[0],
-        )?;
+        ).unwrap_or(SpoilerEscape {
+            base_igt_frames: 0,
+            base_igt_seconds: 0.0,
+            base_leniency_factor: 1.0,
+            difficulty_multiplier: 1.0,
+            raw_time_seconds: 0.0,
+            final_time_seconds: 0.0,
+            animals_route: None,
+            ship_route: Vec::new()
+        });
 
         let spoiler_objectives: Vec<String> = self
             .objectives
