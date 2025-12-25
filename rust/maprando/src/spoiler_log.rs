@@ -624,15 +624,17 @@ fn get_spoiler_route_birectional(
 ) -> (Vec<SpoilerRouteEntry>, Vec<SpoilerRouteEntry>) {
     let forward = &traverser_pair.forward;
     let reverse = &traverser_pair.reverse;
-    let (forward_trail_id, reverse_trail_id) = get_short_bireachable_trails(
+    let (forward_trail_id, reverse_trail_id) = match get_short_bireachable_trails(
         global_state,
         vertex_ids,
         forward,
         reverse,
         forward_trails_by_vertex,
         reverse_trails_by_vertex,
-    )
-    .unwrap();
+    ) {
+        Some(res) => res,
+        None => return (Vec::new(), Vec::new())
+    };
     let forward_trail_ids: Vec<StepTrailId> = get_spoiler_trail_ids(forward, forward_trail_id);
     let reverse_trail_ids: Vec<StepTrailId> = get_spoiler_trail_ids(reverse, reverse_trail_id);
     let obtain_route =
