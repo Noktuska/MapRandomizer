@@ -6,6 +6,7 @@ pub mod vanilla_music;
 
 use anyhow::{Result, bail};
 use log::info;
+use serde::{Deserialize, Serialize};
 use std::cmp::min;
 use std::path::Path;
 
@@ -67,19 +68,19 @@ impl Allocator {
     }
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum MusicSettings {
     AreaThemed,
     Disabled,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum PaletteTheme {
     Vanilla,
     AreaThemed,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum TileTheme {
     Vanilla,
     AreaThemed,
@@ -87,14 +88,14 @@ pub enum TileTheme {
     Constant(String),
 }
 
-#[derive(Default, Debug, Copy, Clone)]
+#[derive(Default, Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub enum DoorTheme {
     #[default]
     Vanilla,
     Alternate,
 }
 
-#[derive(Default, Debug, Copy, Clone)]
+#[derive(Default, Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ControllerButton {
     #[default]
     Default,
@@ -112,7 +113,7 @@ pub enum ControllerButton {
     Start,
 }
 
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone, Serialize, Deserialize)]
 pub struct ControllerConfig {
     pub shot: ControllerButton,
     pub jump: ControllerButton,
@@ -126,47 +127,47 @@ pub struct ControllerConfig {
     pub moonwalk: bool,
 }
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ShakingSetting {
     Vanilla,
     Reduced,
     Disabled,
 }
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub enum FlashingSetting {
     Vanilla,
     Reduced,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub enum ItemDotChange {
     Stay,
     Fade,
     Disappear,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub enum MapTheme {
     Light,
     Dark,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub enum StatuesHallwayTiling {
     Disabled,
     Default,
     Enabled,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub enum StatuesHallwayAudio {
     Disabled,
     Enabled,
     Louder,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct CustomizeSettings {
     pub samus_sprite: Option<String>,
     pub etank_color: Option<(u8, u8, u8)>,
